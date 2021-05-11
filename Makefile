@@ -130,6 +130,13 @@ documentation.open: documentation.compile documentation.clean
 	chromium-browser ${PWD}/docs/distributed_prometheus.pdf
 
 #
+#  Presentation
+#
+
+presentation.open:
+	chromium-browser ${PWD}/docs/index.html
+
+#
 #  Ansible
 #
 
