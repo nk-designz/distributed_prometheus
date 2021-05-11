@@ -1,0 +1,5 @@
+{
+  "type": "cluster",
+  "namespaceName": "default",
+  "retentionTime": "48h"
+}

@@ -1,0 +1,17 @@
+infra/.terraform/**
+infra/.terraform.tfstate.lock.info
+infra/.terraform.tfstate.lock.hcl
+doc/*.log
+doc/*.aux
+doc/*.idx
+doc/*.glo
+doc/*.fdb_latexmk
+doc/*.fls
+doc/*.lot
+doc/*.toc
+doc/*.lof
+doc/*.synctex.gz
+*.retry
+infra/*.lock.hcl
+roles/cloudalchemy*
+inventory/inventory.ini

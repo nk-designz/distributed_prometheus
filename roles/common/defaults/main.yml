@@ -1,0 +1,13 @@
+---
+# defaults file for common
+
+# common packages for the nodes
+common_packages:
+- vim
+- htop
+- podman
+- firewalld
+- python3-firewall
+- jq
+# timezone for all nodes
+timezone: Europe/Berlin

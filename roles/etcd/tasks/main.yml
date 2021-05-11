@@ -1,0 +1,76 @@
+---
+# tasks file for etcd
+- name: Create ETCD storage directory
+  file:
+    path: /var/etcd
+    state: directory
+    mode: 700 # -rwx------
+
+- name: Open ETCD ports
+  ansible.posix.firewalld:
+    port: "{{ item }}/tcp"
+    permanent: yes
+    zone: public
+    state: enabled
+    immediate: yes
+  with_items: "{{ etcd_ports }}"
+
+- name: Create etcdctl alias
+  copy:
+    content: |
+      #!/bin/bash
+      podman exec etcd etcdctl --endpoints={{ etcd_cluster_endpoint }} $@ 
+    mode: 777
+    dest: /usr/bin/etcdctl
+
+- name: Start etcd container
+  containers.podman.podman_container:
+    name: etcd
+    image: "quay.io/coreos/etcd:{{ etcd_version }}"
+    env:
+      ETCDCTL_API: '3'
+    volume:
+    - /etc/timezone:/etc/timezone
+    - /etc/localtime:/etc/localtime
+    - /var/etcd:/var/run/etcd
+    publish:
+    - '4001:4001'
+    - '2379:2379'
+    - '2380:2380'
+    privileged: true
+    state: present
+    hostname: etcd
+    network: host
+    restart_policy: unless-stopped
+    command: |
+      /usr/local/bin/etcd
+      --name {{ ansible_hostname }}
+      --data-dir /var/run/etcd
+      --advertise-client-urls http://{{ etcd_ip }}:2379,http://{{ etcd_ip }}:4001
+      --listen-client-urls http://0.0.0.0:2379,http://0.0.0.0:4001
+      --initial-advertise-peer-urls http://{{ etcd_ip }}:2380
+      --listen-peer-urls http://0.0.0.0:2380
+      --initial-cluster-token etcd-cluster-1
+      --initial-cluster {{ etcd_initial_cluster }}
+      --initial-cluster-state new
+      --data-dir /var/run/etcd
+
+- name: Copy check_cluster_script
+  copy: 
+    content: |
+      #!/bin/bash
+      check_cluster () {
+        [ "$(etcdctl member list | wc -l)" = "{{ groups['nodes'] | length }}" ] && exit 0;
+        sleep 1000 && check_cluster
+      }
+      check_cluster
+    dest: /usr/bin/check_etcd_cluster
+    mode: 777
+  
+- name: Check ETCD cluster
+  command: check_etcd_cluster
+  changed_when: False
+
+- name: Set fact for etcd_cluster_endpoint
+  set_fact:
+    etcd_endpoint: "{{ etcd_cluster_endpoint }}"

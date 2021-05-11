@@ -1,0 +1,147 @@
+---
+# tasks file for m3db
+- name: Apply sysctl
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_set: yes
+  with_items: "{{ sysctl_config }}"
+
+- name: Create M3DB data dir
+  file:
+    path: /var/m3db
+    state: directory
+
+- name: Create M3DB kv dir
+  file:
+    path: /var/m3kv
+    state: directory
+
+- name: Create M3DB config dir
+  file:
+    path: /etc/m3dbnode
+    state: directory
+
+- name: Create M3DB config
+  template:
+    src: config.yaml.j2
+    dest: /etc/m3dbnode/m3dbnode.yml
+
+- name: Open M3DB ports
+  ansible.posix.firewalld:
+    port: "{{ item }}/tcp"
+    permanent: yes
+    zone: public
+    state: enabled
+    immediate: yes
+  with_items: "{{ m3db_ports }}"
+
+- name: Start m3db container
+  containers.podman.podman_container:
+    name: m3db
+    image: "quay.io/m3db/m3dbnode:{{ m3db_version }}"
+    # cap_add:
+    # - SYS_RESOURCE
+    volume:
+    - /etc/m3dbnode:/etc/m3dbnode
+    - /var/m3db:/var/lib/m3db
+    - /var/m3kv:/var/lib/m3kv
+    publish:
+    - "7201:7201"
+    - "7203:7203"
+    - "9000:9000"
+    - "9001:9001"
+    - "9002:9002"
+    - "9003:9003"
+    - "9004:9004"
+    env:
+      M3DB_HOST_ID: "{{ ansible_hostname }}"
+      NAMESPACE: none
+      M3CLUSTER_ENVIRONMENT: production
+    privileged: true
+    state: present
+    hostname: m3db
+    network: host
+    restart_policy: unless-stopped
+
+- name: Create namespace with config
+  uri:
+    method: POST
+    url: http://localhost:7201/api/v1/services/m3db/namespace
+    status_code: 
+    - "200"
+    src: namespace.json
+  run_once: true
+  delay: 10
+  retries: 10
+  when: 'ansible_hostname is search("0")'
+  register: crns_apiResult
+  until: crns_apiResult.status == 200
+
+- name: This step may take an incredible amount of time.
+  command: xdg-open https://www.youtube.com/watch?v=IkdmOVejUlI
+  ignore_errors: yes
+  delegate_to: localhost
+  become: no
+  run_once: yes
+
+#- name: Ready namespace in M3DB # not needed?
+#  uri:
+#    method: POST
+#    url: http://localhost:7201/api/v1/services/m3db/namespace/ready
+#    status_code:
+#    - "200"
+#    body_format: json
+#    src: namespace_ready.json
+#  retries: 120
+#  register: rns_apiResult
+#  delay: 60
+#  when: 'ansible_hostname is search("0")'
+#  until: rns_apiResult.status == 200
+
+- name: Init placement with config
+  uri:
+    method: POST
+    url: http://localhost:7201/api/v1/services/m3db/placement/init
+    status_code: 
+    - "200"
+    - "409"
+    body_format: json
+    body: |
+      {{ lookup('template', 'placement.json.j2') }}
+  run_once: true
+  register: pl_apiResult
+
+- name: Create database in M3DB
+  uri:
+    method: POST
+    url: http://localhost:7201/api/v1/database/create
+    status_code: 
+    - "200"
+    - "400"
+    body_format: json
+    src: database.json
+  retries: 3
+  delay: 5
+  ignore_errors: yes
+  register: apiResult
+  run_once: true
+
+- name: Fail if error
+  fail:
+    msg: "Because: {{ apiResult.json.error }}"
+  when: '"already exists" not in apiResult.json.error and apiResult.status != 200'
+
+- name: Wait for readiness in namespace
+  uri:
+    url: http://localhost:7201/api/v1/services/m3db/placement
+    status_code:
+    - "200"
+    - "400"
+  retries: 120
+  delay: 60
+  ignore_errors: yes
+  register: wpl_apiResult
+  until: wpl_apiResult.status == 200 and "INITIALIZING" != wpl_apiResult.json.placement.instances["m3db-node-0"].shards[0].state # Ansible you fuckin piece of shit
+  when: 'ansible_hostname is search("0")'

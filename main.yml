@@ -1,0 +1,15 @@
+---
+- name: Setup Distributed Prometheus
+  hosts: all
+  become: yes
+  remote_user: root
+
+  roles:
+  - cloudalchemy.node_exporter
+  - common
+  - consul
+  - etcd
+  - m3db
+  - prometheus
+  - grafana
+  

@@ -1,0 +1,4 @@
+---
+# defaults file for prometheus
+consul_token: "{{ ansible_facts['consul_token'] }}"
+consul_datacenter: "{{ ansible_facts['consul_datacenter'] }}"

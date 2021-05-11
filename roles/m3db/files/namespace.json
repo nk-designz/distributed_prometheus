@@ -1,0 +1,28 @@
+{
+  "name": "default",
+  "options": {
+    "bootstrapEnabled": true,
+    "flushEnabled": true,
+    "writesToCommitLog": true,
+    "cleanupEnabled": true,
+    "snapshotEnabled": true,
+    "repairEnabled": false,
+    "retentionOptions": {
+      "retentionPeriodDuration": "48h",
+      "blockSizeDuration": "2h",
+      "bufferFutureDuration": "10m",
+      "bufferPastDuration": "10m",
+      "blockDataExpiry": true,
+      "blockDataExpiryAfterNotAccessPeriodDuration": "12h"
+    },
+    "indexOptions": {
+      "enabled": true,
+      "blockSizeDuration": "2h"
+    },
+    "aggregationOptions": {
+      "aggregations": [
+        { "aggregated": false }
+      ]
+    }
+  }
+}

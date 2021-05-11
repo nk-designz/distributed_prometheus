@@ -1,0 +1,36 @@
+---
+# tasks file for grafana
+- name: Open grafana port
+  ansible.posix.firewalld:
+    port: "3000/tcp"
+    permanent: yes
+    zone: public
+    state: enabled
+    immediate: yes
+
+- name: Create grafana conf folder
+  file:
+    path: /etc/grafana
+    state: directory
+    mode:  "777"
+    recurse: yes
+
+- name: Start grafana container
+  containers.podman.podman_container:
+    name: grafana
+    image: "grafana/grafana:latest"
+    publish:
+    - '3000:3000'
+    privileged: true
+    state: present
+    hostname: "{{ ansible_hostname }}"
+    network: host
+    restart_policy: unless-stopped
+  when: 'ansible_hostname is search("0")'
+
+- name: open in web
+  command: xdg-open http://{{ inventory_hostname }}:3000
+  ignore_errors: yes
+  delegate_to: localhost
+  become: no
+  run_once: yes

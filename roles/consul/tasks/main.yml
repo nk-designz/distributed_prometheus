@@ -1,0 +1,134 @@
+---
+# tasks file for consul
+- name: Open consul ports
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    zone: public
+    state: enabled
+    immediate: yes
+  with_items: "{{ consul_ports }}"
+
+- name: Create Consul data folder
+  file:
+    path: /var/consul
+    state: directory
+    owner: "100"
+    group: "1000"
+    mode:  "777"
+    recurse: yes
+
+- name: Create Consul conf folder
+  file:
+    path: /etc/consul
+    state: directory 
+    owner: "100"
+    group: "1000"
+    mode:  "777"
+    recurse: yes
+
+- name: Start consul server container
+  containers.podman.podman_container:
+    name: consul
+    image: "consul:{{ consul_version }}"
+    volume:
+    - /var/consul:/consul/data
+    - /etc/consul:/etc/config
+    publish:
+    - '8500:8500'
+    - '8501:8501'
+    - '8502:8502'
+    - '8600:8600'
+    - '8300:8300'
+    - '8301:8301'
+    - '8302:8302'
+    privileged: true
+    env:
+      CONSUL_BIND_INTERFACE: eth0
+      CONSUL_CLIENT_INTERFACE: eth0
+      CONSUL_DISABLE_PERM_MGMT:
+    state: present
+    hostname: "{{ ansible_hostname }}"
+    network: host
+    restart_policy: unless-stopped
+    command: |
+      consul agent 
+      -server -ui
+      -bootstrap 
+      -client=0.0.0.0 
+      -bind={{ hostvars[ groups.nodes[0] ]['ansible_default_ipv4']['address'] }}
+      -advertise={{ hostvars[ groups.nodes[0] ]['ansible_default_ipv4']['address'] }}
+      -data-dir=/consul/data
+      -config-dir=/etc/config
+      -datacenter={{ consul_datacenter }}
+  when: 'ansible_hostname is search("0")'
+
+# https://linuxhint.com/run_consul_server_docker/
+- name: Start consul agent container
+  containers.podman.podman_container:
+    name: consul
+    image: "consul:{{ consul_version }}"
+    volume:
+    - /var/consul:/consul/data
+    - /etc/consul:/etc/config
+    publish:
+    - '8500:8500'
+    - '8501:8501'
+    - '8502:8502'
+    - '8600:8600'
+    - '8300:8300'
+    - '8301:8301'
+    - '8302:8302'
+    privileged: true
+    env:
+      CONSUL_BIND_INTERFACE: eth0
+      CONSUL_CLIENT_INTERFACE: eth0
+      CONSUL_DISABLE_PERM_MGMT:
+    state: present
+    hostname: "{{ ansible_hostname }}"
+    network: host
+    restart_policy: unless-stopped
+    command: |
+      consul agent 
+      -data-dir=/consul/data
+      -config-dir=/etc/config
+      -datacenter={{ consul_datacenter }}
+      -join={{ hostvars[ groups.nodes[0] ]['ansible_default_ipv4']['address'] }}
+      -bind={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+      -advertise={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}
+  when: 'ansible_hostname is not search("0")'
+
+- name: Copy check_cluster_script
+  copy: 
+    content: |
+      #!/bin/bash
+      check_cluster () {
+        [ "$(podman exec -it consul consul members | awk '/alive/ { print $1 }' | wc -l)" = "{{ groups['nodes'] | length }}" ] && exit 0;
+        sleep 1000 && check_cluster
+      }
+      check_cluster
+    dest: /usr/bin/check_consul_cluster
+    mode: 777
+  
+- name: Check Consul cluster
+  command: check_consul_cluster
+  changed_when: False
+
+# [x] check running
+# [x] set datacenter name
+# [x] add consul volume
+
+- name: set fact consul datacenter
+  set_fact:
+    consul_datacenter: "{{ consul_datacenter }}"
+
+#- name: set fact consul token
+#  set_fact:
+#    consul_datacenter: "{{ consul_token }}"
+
+- name: open in web
+  command: xdg-open http://{{ inventory_hostname }}:8500
+  ignore_errors: yes
+  delegate_to: localhost
+  become: no
+  run_once: yes

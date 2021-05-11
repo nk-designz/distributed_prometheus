@@ -1,0 +1,30 @@
+---
+# tasks file for common
+- name: Set a hostname
+  ansible.builtin.hostname:
+    name: "{{ ansible_hostname }}"
+
+- name: Install EPEL repository
+  dnf:
+    name: epel-release
+    state: latest
+
+- name: Install common packages
+  dnf:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Enable Firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+- name: Set timezone to Europe/Berlin
+  timezone:
+    name: "{{ timezone }}"
+
+- name: Add timezone to /etc/timezone
+  copy:
+    dest: /etc/timezone
+    content: "{{ timezone }}"

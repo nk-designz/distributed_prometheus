@@ -1,0 +1,17 @@
+{
+  "num_shards": 32,
+  "replication_factor": 3,
+  "instances": [
+{% for host in groups['all'] %}
+   {
+     "id": "{{ hostvars[host].ansible_facts.hostname }}",
+     "isolation_group":  "{{ hostvars[host].ansible_facts.hostname }}_isolation_group",
+     "zone": "embedded",
+     "weight": 100,
+     "endpoint": "{{ hostvars[host].ansible_facts.default_ipv4.address }}:9000",
+     "hostname": "{{ hostvars[host].ansible_facts.hostname }}",
+     "port": 9000
+   },
+{% endfor %}
+  ]
+}

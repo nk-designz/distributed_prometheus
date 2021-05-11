@@ -1,0 +1,48 @@
+# https://github.com/m3db/m3/blob/master/config/m3db/clustered-etcd/generated.yaml sample conf
+# https://github.com/m3db/m3/issues/3352
+db:
+  logging:
+    level: debug
+  hostID:
+    resolver: config
+    value: "{{ ansible_hostname }}"
+  filesystem:
+    filePathPrefix: /var/lib/m3db
+  metrics:
+    prometheus:
+      # Path to expose Prometheus scrape endpoint.
+      handlerPath: /metrics
+    sanitization: prometheus
+    # Sampling rate for metrics, use 1.0 for no sampling.
+    samplingRate: 1.0
+    extended: detailed
+  discovery:
+    config:
+      service:
+        env: production
+        cacheDir: /var/lib/m3kv
+        etcdClusters:
+        - zone: embedded
+          endpoints:
+{% for host in groups['all'] %}
+          - "http://{{ hostvars[host].ansible_facts.default_ipv4.address }}:2379"
+{% endfor %}
+        service: m3db
+        zone: embedded
+  clusterListenAddress: "0.0.0.0:9001"
+  debugListenAddress: "0.0.0.0:9004"
+  httpClusterListenAddress: "0.0.0.0:9003"
+  httpNodeListenAddress: "0.0.0.0:9002"
+  listenAddress: "0.0.0.0:9000"
+
+coordinator:
+  listenAddress: "0.0.0.0:7201"
+  local:
+    namespaces:
+    - namespace: default
+      retention: 48h
+      type: unaggregated
+      downsample:
+        all: true
+  tagOptions:
+    idScheme: quoted

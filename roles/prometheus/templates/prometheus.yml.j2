@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+remote_write:
+- url: "http://localhost:7201/api/v1/prom/remote/write"
+remote_read:
+- url: "http://localhost:7201/api/v1/prom/remote/read"
+  read_recent: true
+scrape_configs:
+  - job_name: 'prometheus'
+    scrape_interval: 5s
+    static_configs:
+      - targets:
+        - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9090"
+        - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9100"
+        labels:
+          group: 'prometheus'
+  - job_name: 'm3' 
+    static_configs: 
+      - targets:
+        - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:7203"
+        - "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9004"
+  - job_name: 'consul_services'
+    consul_sd_configs:
+    - server: "127.0.0.1:8500"
+      datacenter: "{{ consul_datacenter }}"
+      scheme: http
+      refresh_interval: "60s"

@@ -1,0 +1,35 @@
+---
+# tasks file for prometheus
+- name: Create the config
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus.yml
+
+- name: Open port
+  ansible.posix.firewalld:
+    port: "9090/tcp"
+    permanent: yes
+    zone: public
+    state: enabled
+    immediate: yes
+
+- name: Start prometheus container
+  containers.podman.podman_container:
+    name: prometheus
+    image: "prom/prometheus"
+    volume:
+    - /etc/prometheus.yml:/etc/prometheus/prometheus.yml
+    publish:
+    - "9090:9090"
+    privileged: true
+    state: present
+    hostname: "{{ ansible_hostname }}"
+    network: host
+    restart_policy: unless-stopped
+
+- name: open in web
+  command: xdg-open http://{{ inventory_hostname }}:9090
+  ignore_errors: yes
+  delegate_to: localhost
+  become: no
+  run_once: yes

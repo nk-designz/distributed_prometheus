@@ -1,0 +1,11 @@
+---
+# defaults file for etcd
+etcd_ports:
+- 4001
+- 2379
+- 2380
+etcd_version: v3.3.10 # v3.4.15
+etcd_ip: "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+etcd_initial_cluster: "{% for host in groups['nodes'] %}{{ hostvars[host]['ansible_facts']['hostname'] }}=http://{{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:2380{% if not loop.last %},{% endif %}{% endfor %}"
+# etcd0=http://10.200.3.98:2380,etcd1=http://10.200.3.98:2380,etcd2=http://10.200.3.98:2380
+etcd_cluster_endpoint: "{% for host in groups['nodes'] %}http://{{ hostvars[host]['ansible_facts']['eth0']['ipv4']['address'] }}:2379{% if not loop.last %},{% endif %}{% endfor %}"

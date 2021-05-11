@@ -1,0 +1,5 @@
+---
+- src: https://github.com/cloudalchemy/ansible-node-exporter
+  name: cloudalchemy.node_exporter
+  scm: git
+  version: master
