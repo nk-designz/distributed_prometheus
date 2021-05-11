@@ -1,7 +1,7 @@
 # Distributed Prometheus
 Spin up prometheus backed by [m3](https://m3db.io) using ansible.
 ## Documentation
-The [documentation](doc/distributed_prometheus.pdf) is written in german due to external requirements.
+The [documentation](docs/distributed_prometheus.pdf) is written in german due to external requirements.
 ## Getting started
 ### Prerequesites
 * make
@@ -53,7 +53,8 @@ The [documentation](doc/distributed_prometheus.pdf) is written in german due to 
 - [x] prometheus role
 - [x] load balancer
 - [x] grafana role
-- [ ] documentation
+- [x] documentation
+- [ ] presentation
 
 ## Draft
 ~~~bash

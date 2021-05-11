@@ -104,29 +104,29 @@ infrastructure.init:
 #
 
 documentation.compile:
-	cd doc && \
+	cd docs && \
 	latexmk -pdf  \
 	 distributed_prometheus.tex > /dev/null
 
 documentation.review_compile: documentation.compile
-	cd doc && \
+	cd docs && \
 	pandoc \
 	    distributed_prometheus.tex \
 	 -o distributed_prometheus.docx
 
 documentation.get_log:
-	[ -e "doc/distributed_prometheus.log" ] && cat doc/*.log || exit 0
+	[ -e "docs/distributed_prometheus.log" ] && cat docs/*.log || exit 0
 
 documentation.clean: documentation.get_log
 	@ echo "Removing files:" && \
-	cd doc && \
+	cd docs && \
 	ls \
 	| grep -E -v "*.tex|*.pdf|*.docx|assets" \
 	| tee /dev/tty \
 	| xargs rm -f
 
 documentation.open: documentation.compile documentation.clean
-	chromium-browser ${PWD}/doc/distributed_prometheus.pdf
+	chromium-browser ${PWD}/docs/distributed_prometheus.pdf
 
 #
 #  Ansible
