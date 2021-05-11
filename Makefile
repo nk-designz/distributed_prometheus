@@ -121,7 +121,8 @@ documentation.clean: documentation.get_log
 	@ echo "Removing files:" && \
 	cd docs && \
 	ls \
-	| grep -E -v "*.tex|*.pdf|*.docx|assets" \
+	| grep . \
+	| grep -E -v '*.tex|*.pdf|*.docx|assets|dist|css|gulpfile.js|index.html|js|package.json|package-lock.json|plugin|REVEALJS_LICENSE|test' \
 	| tee /dev/tty \
 	| xargs rm -f
 
