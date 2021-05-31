@@ -15,6 +15,43 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+
+		<style>
+			:root {
+				--anthrazit: #393D47;
+				--haze: rgb(125,107,125);
+				--pale-graze: #687494;
+			}
+			.reveal section * {
+				color: var(--anthrazit);
+			}
+			.backgrounds {
+				-webkit-filter: blur(5px);
+				-moz-filter: blur(50px);
+				-o-filter: blur(5px);
+				-ms-filter: blur(5px);
+				filter: blur(5px);
+			}
+			#deck * {
+				color: white !important;
+			}
+			.reveal ul[id*='agenda'] {
+				list-style-type: none;
+			}
+			.reveal section .page_number {
+				color: var(--pale-graze); 
+				text-decoration: none;
+			}
+			.reveal section .page_number:hover {
+				color: var(--haze) !important;
+			}
+			.reveal section[data-background-color*="var(--haze)"] * {
+				color: white !important;
+			}
+			#qr-code {
+				margin-left: calc( 50% - 150px);
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -22,8 +59,9 @@
 				<section 
 				  data-auto-animate 
 				  data-background-image="assets/monitoring_title.jpg"
-				  data-transition="slide">
-					<p style="color:white;">
+				  data-transition="slide"
+				  id="deck">
+					<p>
 					Einrichtung einer verteilten Monitoringlösung auf Basis von Prometheus und M3
       				im Bereich des behördlichen Gesundheitswesens
 					<br/>
@@ -33,22 +71,22 @@
 			<!-- Agenda -->
 				<section data-auto-animate>
 					<h1>Agenda</h1>
-					<ul id="agenda" style="list-style-type: none;"></ul>
+					<ul id="agenda"></ul>
 				</section>
 			<!-- Inhalt -->
 			<section data-auto-animate>
-				<h1>Vorstellung des Unternehmen</h1>
+				<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
 			</section>
 			<!-- Danksagung -->
-				<section data-auto-animate data-background-color="rgb(125,107,125)">
-					<h1>Ende</h1>
+				<section data-auto-animate data-background-color="var(--haze)">
+					<h1 class="r-fit-text">Ende</h1>
 					<h2 class="r-fit-text">Danke für Ihre Aufmerksamkeit</h2>
 					<h3 class="r-fit-text">Haben Sie noch Fragen?</h3>
 				</section>
-				<section data-auto-animate data-background-color="rgb(125,107,125)">
+				<section data-auto-animate data-background-color="var(--haze)">
 					<h2 class="r-fit-text">Danke für Ihre Aufmerksamkeit</h2>
 					<h3 class="r-fit-text">Haben Sie noch Fragen?</h3>
-					<div style="margin-left: calc( 50% - 150px);" width="100px" id="qr-code" ></div>
+					<div width="100px" id="qr-code" ></div>
 					<small>Und hier geht es online weiter</small>
 				</section>
 			</div>
@@ -56,6 +94,8 @@
 
 		<script src="dist/reveal.js"></script>
 		<script src="dist/qrcode.min.js"></script>
+		<script src="plugin/chart/chart.min.js"></script>
+		<script src="plugin/chart/plugin.js"></script>
 		<script src="plugin/notes/notes.js"></script>
 		<script src="plugin/markdown/markdown.js"></script>
 		<script src="plugin/highlight/highlight.js"></script>
@@ -75,12 +115,32 @@
 				transition: 'slide',
 				autoAnimate: true,
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChart ],
+				// Chart Config
+				chart: {
+					defaults: {
+						global: {
+							title: { fontColor: "#000" },
+							legend: {
+								labels: { fontColor: "#000" },
+							},
+						},
+						scale: {
+							scaleLabel: { fontColor: "#000" },
+							gridLines: { color: "#000", zeroLineColor: "#000" },
+							ticks: { fontColor: "#000" },
+						}
+					},
+					line: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ], "borderDash": [ [5,10], [0,0] ]},
+					bar: { backgroundColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]},
+					pie: { backgroundColor: [ ["rgba(0,0,0,.8)" , "rgba(220,20,20,.8)", "rgba(20,220,20,.8)", "rgba(220,220,20,.8)", "rgba(20,20,220,.8)"] ]},
+					radar: { borderColor: [ "rgba(20,220,220,.8)" , "rgba(220,120,120,.8)", "rgba(20,120,220,.8)" ]},
+				}
 			}).then( () => {
 				// reveal.js is ready
 				// Create QR Code dynamically
 				new QRCode(document.getElementById("qr-code"), {
-					text: window.location.href,
+					text: window.location.href.slice(0, -1),
 					width: 300,
     				height: 300,
     				colorDark : "#ffffff",
@@ -95,7 +155,7 @@
 							const heading = headingList[0].innerHTML
 							const entry = document.createElement('li')
 							const page_number = document.createElement('a')
-							page_number.style = "color: gray; decoration: none;"
+							page_number.className = "page_number"
 							page_number.innerText = key + " "
 							page_number.href = window.location.href.replace(1, key)
 							entry.append(page_number, heading)
@@ -104,7 +164,7 @@
 							}
 						}
 					}
-				)
+				);
 			});
 		</script>
 	</body>
