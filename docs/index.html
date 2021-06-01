@@ -88,15 +88,17 @@ scrape_configs:
 					<small>Template der Prometheuskonfiguration</small>
 				</section>
 			<!-- Durchführung -->
-				<section>
+				<section id="Durchführung">
 					<h1 class="r-fit-text">Durchführung</h1>
-					<asciinema-player 
-					  autoplay="1"
+					<asciinema-player
+					  id="player"
 					  speed="2" 
 					  theme="solarized-light" 
 					  preload src="assets/provisioning.cast"
 					  cols="250"
 					  rows="30"
+					  t="3:20"
+					  poster="npt:3:20"
 					></asciinema-player>
 				</section>
 			<!-- Danksagung -->
@@ -189,6 +191,12 @@ scrape_configs:
 						}
 					}
 				);
+			});
+			Reveal.on( 'slidechanged', event => {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				if(event.currentSlide.id == 'Durchführung') {
+					document.getElementById('player').play();
+				}
 			});
 		</script>
 	</body>
