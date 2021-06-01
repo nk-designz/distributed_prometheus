@@ -1,4 +1,7 @@
 <!doctype html>
+<!-- 
+	Icons: https://fonts.google.com/icons
+-->
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -12,6 +15,7 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css" id="theme">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
@@ -51,6 +55,23 @@
 			#qr-code {
 				margin-left: calc( 50% - 150px);
 			}
+			.md-64 {
+				font-size: 64px;
+			}
+			.vdu-grid-container {
+				display: grid;
+				grid-gap: 50px 100px;
+			}
+			.vdu-image-grid-item {
+				display: inline-grid;
+				grid-column-start: 1;
+  				grid-column-end:   1;
+			}
+			.vdu-info-grid-item {
+				display: inline-grid;
+				grid-column-start: 2;
+  				grid-column-end: 2;
+			}
 		</style>
 	</head>
 	<body>
@@ -69,14 +90,34 @@
 					</p>
 				</section>
 			<!-- Agenda -->
+				<section id="agenda" data-auto-animate>
+					<span class="material-icons r-fit-text">format_list_numbered_rtl</span>
+					<h1>Agenda</h1>
+				</section>
 				<section data-auto-animate>
 					<h1>Agenda</h1>
-					<ul id="agenda"></ul>
+					<ul id="agenda-index"></ul>
 				</section>
-			<!-- Inhalt -->
-			<section data-auto-animate>
-				<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
-			</section>
+			<!-- Vorstellung des Unternehmen -->
+				<section data-auto-animate>
+					<span class="material-icons r-fit-text">apartment</span>
+					<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
+				</section>
+				<section data-auto-animate>
+					<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
+					<div class="vdu-grid-container">
+						<div class="vdu-image-grid-item">
+							<img src="assets/it-campus.jpg" />
+							IT Campus
+						</div>
+						<div class="vdu-info-grid-item">
+							<ul>
+								<li>circa 100 Mitarbeitende</li>
+								<li>Systemintegrationshaus</li>
+							</ul>
+						</div>
+					</div>
+				</section>
 			<!-- Danksagung -->
 				<section data-auto-animate data-background-color="var(--haze)">
 					<h1 class="r-fit-text">Ende</h1>
@@ -162,7 +203,7 @@
 							page_number.href = window.location.href.replace(1, key)
 							entry.append(page_number, heading)
 							if(heading != 'Agenda') { 
-								document.getElementById("agenda").append(entry)
+								document.getElementById("agenda-index").append(entry)
 							}
 						}
 					}
