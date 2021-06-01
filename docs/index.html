@@ -18,7 +18,7 @@
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+		<link rel="stylesheet" href="plugin/highlight/zenburn.css" id="highlight-theme">
 
 		<style>
 			:root {
@@ -26,7 +26,7 @@
 				--haze: rgb(125,107,125);
 				--pale-graze: #687494;
 			}
-			.reveal section * {
+			.reveal section>*:not(pre > *):not(code > *) {
 				color: var(--anthrazit);
 			}
 			.backgrounds {
@@ -55,19 +55,19 @@
 			#qr-code {
 				margin-left: calc( 50% - 150px);
 			}
-			.md-64 {
-				font-size: 64px;
+			.md-big {
+				font-size: 150px;
 			}
-			.vdu-grid-container {
+			.grid-container {
 				display: grid;
 				grid-gap: 50px 100px;
 			}
-			.vdu-image-grid-item {
+			.left-grid-item {
 				display: inline-grid;
 				grid-column-start: 1;
   				grid-column-end:   1;
 			}
-			.vdu-info-grid-item {
+			.right-grid-item {
 				display: inline-grid;
 				grid-column-start: 2;
   				grid-column-end: 2;
@@ -82,6 +82,7 @@
 				  data-background-image="assets/monitoring_title.jpg"
 				  data-transition="slide"
 				  id="deck">
+				    <img height="150px" src="https://prometheus.io/assets/prometheus_logo_grey.svg" />
 					<p>
 					Einrichtung einer verteilten Monitoringlösung auf Basis von Prometheus und M3
       				im Bereich des behördlichen Gesundheitswesens
@@ -91,7 +92,7 @@
 				</section>
 			<!-- Agenda -->
 				<section id="agenda" data-auto-animate>
-					<span class="material-icons r-fit-text">format_list_numbered_rtl</span>
+					<span class="material-icons md-big">format_list_numbered_rtl</span>
 					<h1>Agenda</h1>
 				</section>
 				<section data-auto-animate>
@@ -100,17 +101,17 @@
 				</section>
 			<!-- Vorstellung des Unternehmen -->
 				<section data-auto-animate>
-					<span class="material-icons r-fit-text">apartment</span>
+					<span class="material-icons md-big">apartment</span>
 					<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
 				</section>
 				<section data-auto-animate>
 					<h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
-					<div class="vdu-grid-container">
-						<div class="vdu-image-grid-item">
+					<div class="grid-container">
+						<div class="left-grid-item">
 							<img src="assets/it-campus.jpg" />
 							IT Campus
 						</div>
-						<div class="vdu-info-grid-item">
+						<div class="right-grid-item">
 							<ul>
 								<li>circa 100 Mitarbeitende</li>
 								<li>Systemintegrationshaus</li>
@@ -118,9 +119,28 @@
 						</div>
 					</div>
 				</section>
+			<!-- Code -->
+				<section>
+					<h1 class="r-fit-text">Prometheuskonfiguration</h1>	
+					<pre><code data-trim data-noescape data-line-numbers="2-4|5-6|7-9|9-13">
+# prometheus.yml.j2
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+remote_write:
+- url: "http://localhost:7201/api/v1/prom/remote/write"
+scrape_configs:
+- job_name: 'consul_services'
+  consul_sd_configs:
+  - server: "127.0.0.1:8500"
+    datacenter: "{{ consul_datacenter }}"
+    scheme: http
+    refresh_interval: "60s"
+					</code></pre>
+					<small>Template der Prometheuskonfiguration</small>
+				</section>
 			<!-- Danksagung -->
-				<section data-auto-animate data-background-color="var(--haze)">
-					<h1 class="r-fit-text">Ende</h1>
+				<section id="Ende" data-auto-animate data-background-color="var(--haze)">
 					<h2 class="r-fit-text">Danke für Ihre Aufmerksamkeit</h2>
 					<h3 class="r-fit-text">Haben Sie noch Fragen?</h3>
 				</section>
@@ -199,7 +219,7 @@
 							const entry = document.createElement('li')
 							const page_number = document.createElement('a')
 							page_number.className = "page_number"
-							page_number.innerText = key - 1 + " "
+							page_number.innerText = key + " "
 							page_number.href = window.location.href.replace(1, key)
 							entry.append(page_number, heading)
 							if(heading != 'Agenda') { 
