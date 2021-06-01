@@ -15,7 +15,8 @@
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
 		<link rel="stylesheet" href="dist/theme/white.css" id="theme">
-		<link rel="stylesheet" href="css/custom.css">
+		<link rel="stylesheet" href="dist/custom.css">
+		<link rel="stylesheet" href="dist/asciinema-player.css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -86,6 +87,10 @@ scrape_configs:
 					</code></pre>
 					<small>Template der Prometheuskonfiguration</small>
 				</section>
+			<!-- Durchführung -->
+				<section>
+					<asciinema-player src="/assets/provisioning.cast"></asciinema-player>
+				</section>
 			<!-- Danksagung -->
 				<section id="Ende" data-auto-animate data-background-color="var(--haze)">
 					<h2 class="r-fit-text">Danke für Ihre Aufmerksamkeit</h2>
@@ -104,6 +109,7 @@ scrape_configs:
 
 		<script src="dist/reveal.js"></script>
 		<script src="dist/qrcode.min.js"></script>
+		<script src="dist/asciinema-player.js"></script>
 		<script src="plugin/chart/chart.min.js"></script>
 		<script src="plugin/chart/plugin.js"></script>
 		<script src="plugin/notes/notes.js"></script>
