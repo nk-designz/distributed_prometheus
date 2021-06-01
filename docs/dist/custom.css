@@ -57,3 +57,8 @@
 .reveal .controls {
     color: var(--pale-graze);
 }
+asciinema-player {
+    margin: 0;
+    height: 100vw;
+    width: 100vh;
+}
