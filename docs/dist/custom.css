@@ -1,64 +1,65 @@
 :root {
-    --anthrazit: #393D47;
-    --haze: rgb(125,107,125);
-    --pale-graze: #687494;
+  --anthrazit: #393d47;
+  --haze: rgb(125, 107, 125);
+  --pale-graze: #687494;
 }
-.reveal section>*:not(pre > *):not(code > *) {
-    color: var(--anthrazit);
+.reveal section > *:not(pre > *):not(code > *) {
+  color: var(--anthrazit);
 }
 .backgrounds {
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(50px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-    filter: blur(5px);
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(50px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
 }
 #deck * {
-    color: white !important;
+  color: white !important;
 }
-.reveal ul[id*='agenda'] {
-    list-style-type: none;
+.reveal ul[id*="agenda"] {
+  list-style-type: none;
 }
 .reveal section .page_number {
-    color: var(--pale-graze); 
-    text-decoration: none;
+  color: var(--pale-graze);
+  text-decoration: none;
 }
 .reveal section .page_number:hover {
-    color: var(--haze) !important;
+  color: var(--haze) !important;
 }
 .reveal section[data-background-color*="var(--haze)"] * {
-    color: white !important;
+  color: white !important;
 }
 #qr-code {
-    margin-left: calc( 50% - 150px);
+  margin-left: calc(50% - 150px);
+  width: 100px;
 }
 .md-big {
-    font-size: 150px;
+  font-size: 150px;
 }
 .grid-container {
-    display: grid;
-    grid-gap: 50px 100px;
+  display: grid;
+  grid-gap: 50px 100px;
 }
 .left-grid-item {
-    display: inline-grid;
-    grid-column-start: 1;
-      grid-column-end:   1;
+  display: inline-grid;
+  grid-column-start: 1;
+  grid-column-end: 1;
 }
 .right-grid-item {
-    display: inline-grid;
-    grid-column-start: 2;
-      grid-column-end: 2;
+  display: inline-grid;
+  grid-column-start: 2;
+  grid-column-end: 2;
 }
 .reveal .progress {
-    height: 7px;
-    color: var(--pale-graze);
-    background-color: transparent;
+  height: 7px;
+  color: var(--pale-graze);
+  background-color: transparent;
 }
 .reveal .controls {
-    color: var(--pale-graze);
+  color: var(--pale-graze);
 }
 asciinema-player {
-    margin: 0;
-    height: 100vw;
-    width: 100vh;
+  margin: 0;
+  height: 100vw;
+  width: 100vh;
 }
