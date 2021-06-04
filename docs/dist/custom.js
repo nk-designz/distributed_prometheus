@@ -93,11 +93,11 @@ Reveal.initialize({
     }
   });
 });
+const player = document.getElementById("player")
+player.currentTime = 200;
 Reveal.on("slidechanged", (event) => {
   // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-  if (event.currentSlide.id == "Durchführung") {
-    const player = document.getElementById("player")
-    player.currentTime = 200;
+  if (event.currentSlide.id == "Installation") {
     player.play();
   }
 });
