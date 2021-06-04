@@ -62,12 +62,15 @@
           <ul id="agenda-index"></ul>
         </section>
         <!-- Vorstellung des Unternehmen -->
-        <section data-auto-animate>
+        <section
+		  data-auto-animate 
+		  id="Vorstelllung des Unternehmens"
+		 >
           <span class="material-icons md-big">apartment</span>
-          <h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
+          <h1 class="r-fit-text">Vorstellung des Unternehmens</h1>
         </section>
         <section data-auto-animate>
-          <h1 class="r-fit-text">Vorstellung des Unternehmen</h1>
+          <h1 class="r-fit-text">Vorstellung des Unternehmens</h1>
           <div class="grid-container">
             <div class="left-grid-item">
               <img src="assets/it-campus.jpg" />
@@ -102,8 +105,8 @@ scrape_configs:
           <small>Template der Prometheuskonfiguration</small>
         </section>
         <!-- Durchführung -->
-        <section id="Durchführung">
-          <h1 class="r-fit-text">Durchführung</h1>
+        <section id="Installation">
+          <h1 class="r-fit-text">Installation</h1>
           <asciinema-player
             id="player"
             speed="2"
@@ -111,8 +114,8 @@ scrape_configs:
             preload
             src="assets/provisioning.cast"
             cols="250"
-            rows="30"
-            t="3:20"
+            rows="25"
+            start-at="200"
             poster="npt:3:20"
           ></asciinema-player>
         </section>
@@ -126,7 +129,6 @@ scrape_configs:
         </section>
         <!-- Danksagung -->
         <section
-          id="Ende"
           data-auto-animate
           data-background-color="var(--haze)"
         >
@@ -139,9 +141,7 @@ scrape_configs:
           <div id="qr-code"></div>
           <small
             >Und
-            <a href="https://github.com/nk-designz/distributed_prometheus"
-              >hier</a
-            >
+            <a href="https://github.com/nk-designz/distributed_prometheus">hier</a>
             geht es online weiter
           </small>
         </section>
@@ -156,109 +156,6 @@ scrape_configs:
     <script src="plugin/notes/notes.js"></script>
     <script src="plugin/markdown/markdown.js"></script>
     <script src="plugin/highlight/highlight.js"></script>
-    <script>
-      // More info about initialization & config:
-      // - https://revealjs.com/initialization/
-      // - https://revealjs.com/config/
-      Reveal.initialize({
-        hash: true,
-        controlsTutorial: true,
-        controlsLayout: "edges",
-        progress: true,
-        slideNumber: "c/t",
-        showSlideNumber: "all",
-        history: true,
-        touch: true,
-        transition: "slide",
-        autoAnimate: true,
-        // Learn about plugins: https://revealjs.com/plugins/
-        plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealChart],
-        // Chart Config
-        chart: {
-          defaults: {
-            global: {
-              title: { fontColor: "#000" },
-              legend: {
-                labels: { fontColor: "#000" },
-              },
-            },
-            scale: {
-              scaleLabel: { fontColor: "#000" },
-              gridLines: { color: "#000", zeroLineColor: "#000" },
-              ticks: { fontColor: "#000" },
-            },
-          },
-          line: {
-            borderColor: [
-              "rgba(20,220,220,.8)",
-              "rgba(220,120,120,.8)",
-              "rgba(20,120,220,.8)",
-            ],
-            borderDash: [
-              [5, 10],
-              [0, 0],
-            ],
-          },
-          bar: {
-            backgroundColor: [
-              "rgba(20,220,220,.8)",
-              "rgba(220,120,120,.8)",
-              "rgba(20,120,220,.8)",
-            ],
-          },
-          pie: {
-            backgroundColor: [
-              [
-                "rgba(0,0,0,.8)",
-                "rgba(220,20,20,.8)",
-                "rgba(20,220,20,.8)",
-                "rgba(220,220,20,.8)",
-                "rgba(20,20,220,.8)",
-              ],
-            ],
-          },
-          radar: {
-            borderColor: [
-              "rgba(20,220,220,.8)",
-              "rgba(220,120,120,.8)",
-              "rgba(20,120,220,.8)",
-            ],
-          },
-        },
-      }).then(() => {
-        // reveal.js is ready
-        // Create QR Code dynamically
-        new QRCode(document.getElementById("qr-code"), {
-          text: "https://github.com/nk-designz/distributed_prometheus", // window.location.href.slice(0, -1),
-          width: 300,
-          height: 300,
-          colorDark: "#ffffff",
-          colorLight: "#7d6b7d",
-          correctLevel: QRCode.CorrectLevel.H,
-        });
-        // Create the Agenda from h1 tags
-        document.getElementsByTagName("section").forEach((val, key) => {
-          const headingList = val.getElementsByTagName("h1");
-          if (headingList.length != 0) {
-            const heading = headingList[0].innerHTML;
-            const entry = document.createElement("li");
-            const page_number = document.createElement("a");
-            page_number.className = "page_number";
-            page_number.innerText = key + " ";
-            page_number.href = window.location.href.replace(1, key);
-            entry.append(page_number, heading);
-            if (heading != "Agenda") {
-              document.getElementById("agenda-index").append(entry);
-            }
-          }
-        });
-      });
-      Reveal.on("slidechanged", (event) => {
-        // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-        if (event.currentSlide.id == "Durchführung") {
-          document.getElementById("player").play();
-        }
-      });
-    </script>
+    <script src="dist/custom.js"></script>
   </body>
 </html>
