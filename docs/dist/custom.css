@@ -62,3 +62,6 @@ asciinema-player {
   height: 100vw;
   width: 100vh;
 }
+.lighter {
+    color: var(--pale-graze);
+}

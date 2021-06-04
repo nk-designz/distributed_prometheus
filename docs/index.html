@@ -62,10 +62,7 @@
           <ul id="agenda-index"></ul>
         </section>
         <!-- Vorstellung des Unternehmen -->
-        <section
-		  data-auto-animate 
-		  id="Vorstelllung des Unternehmens"
-		 >
+        <section data-auto-animate id="Vorstelllung des Unternehmens">
           <span class="material-icons md-big">apartment</span>
           <h1 class="r-fit-text">Vorstellung des Unternehmens</h1>
         </section>
@@ -73,17 +70,51 @@
           <h1 class="r-fit-text">Vorstellung des Unternehmens</h1>
           <div class="grid-container">
             <div class="left-grid-item">
-              <img src="assets/it-campus.jpg" />
-              IT Campus
+			  <img src="assets/it-campus.jpg" />
+              <h6 class="r-fit-text">
+                IT Campus
+			  </h6>
             </div>
-            <div class="right-grid-item">
-              <ul>
-                <li>circa 100 Mitarbeitende</li>
-                <li>Systemintegrationshaus</li>
-              </ul>
+            <div class="right-grid-item r-stack">
+			  <div class="fragment fade-out" data-fragment-index="0">
+				<h6>Infos</h6>
+				<ul>
+					<li>IT-Dienstleister für den Mittelstand</li>
+					<li>ca. 100 Mitarbeitende</li>
+				  </ul>
+			  </div>
+              <div class="fragment current-visible" data-fragment-index="0">
+                <h6>Weitere Standorte</h6>
+                <ul>
+                  <li>Hannover</li>
+                  <li>Kassel</li>
+				  <li>Braunschweig</li>
+                </ul>
+              </div>
+              <div class="fragment fade-in-then-out">
+                <h6>Rechenzentren</h6>
+                <ul>
+                  <li>Braunschweig</li>
+                  <li>Hannover</li>
+                  <li>Salzgitter</li>
+                  <li class="lighter">Limburg (OVH)</li>
+                </ul>
+              </div>
+			  <div class="fragment fade-in">
+                Langjährige Geschäftsbeziehungen mit dem HZI
+              </div>
             </div>
           </div>
         </section>
+		<!-- Vorstellung der Kunden -->
+		<section data-auto-animate id="Vorstellung der Kunden">
+			<span class="material-icons md-big">person</span>
+			<h1 class="r-text-fit">Vorstellung der Kunden</h1>
+		</section>
+		<section data-auto-animate id="Vorstellung der Kunden">
+			<h1 class="r-text-fit">Vorstellung der Kunden</h1>
+			test
+		</section>
         <!-- Code -->
         <section>
           <h1 class="r-fit-text">Prometheuskonfiguration</h1>
@@ -121,17 +152,14 @@ scrape_configs:
         </section>
         <!-- Quellen -->
         <section
-          id="Ende"
+          id="Quellen"
           data-auto-animate
           data-background-color="var(--haze)"
         >
           <h1 class="r-fit-text">Quellen</h1>
         </section>
         <!-- Danksagung -->
-        <section
-          data-auto-animate
-          data-background-color="var(--haze)"
-        >
+        <section data-auto-animate data-background-color="var(--haze)">
           <h2 class="r-fit-text">Danke für Ihre Aufmerksamkeit</h2>
           <h3 class="r-fit-text">Haben Sie noch Fragen?</h3>
         </section>
@@ -141,7 +169,9 @@ scrape_configs:
           <div id="qr-code"></div>
           <small
             >Und
-            <a href="https://github.com/nk-designz/distributed_prometheus">hier</a>
+            <a href="https://github.com/nk-designz/distributed_prometheus"
+              >hier</a
+            >
             geht es online weiter
           </small>
         </section>
