@@ -88,7 +88,7 @@ Reveal.initialize({
         if (k > 9) { return k }
         return '0' + k
       })(key) + ' ';
-      page_number.href = window.location.href.replace(2, key);
+      page_number.href = window.location.href.replace('deck', key);
       entry.append(page_number, heading);
 
       if (heading != "Agenda") {
