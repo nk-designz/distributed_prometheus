@@ -85,7 +85,7 @@ Reveal.initialize({
       const page_number = document.createElement("a");
       page_number.className = "page_number";
       page_number.innerText = key + ' ';
-      page_number.href = window.location.href.replace(1, key);
+      page_number.href = window.location.href.replace(2, key);
       entry.append(page_number, heading);
       if (heading != "Agenda") {
         document.getElementById("agenda-index").append(entry);

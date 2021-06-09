@@ -6,6 +6,9 @@
 .reveal section > *:not(pre > *):not(code > *) {
   color: var(--anthrazit);
 }
+.reveal h6 {
+  color: var(--anthrazit);
+}
 .backgrounds {
   -webkit-filter: blur(5px);
   -moz-filter: blur(50px);
@@ -34,6 +37,13 @@
 }
 .md-big {
   font-size: 150px;
+}
+.icon-bw {
+  width: 150px;
+  filter: grayscale(100%) contrast(100%);
+}
+.icon {
+  width: 150px;
 }
 .grid-container {
   display: grid;
