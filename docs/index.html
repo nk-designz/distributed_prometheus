@@ -152,23 +152,179 @@
               <ul class="fragment current-visible" data-fragment-index="0">
                 <li>400 Instanzen</li>
                 <li>Containerisiert</li>
-                <li>Updates alle 2 Wochen </li>
+                <li>Updates alle 2 Wochen</li>
                 <li>Herausforderung für das Monitoring</li>
               </ul>
             </div>
           </div>
         </section>
-        <!-- ist-soll -->
+        <!-- Planung -->
+        <section id="Ablaufplan & Aufwand" data-auto-animate>
+          <span class="material-icons md-big">map</span>
+          <br />
+          <h1 class="r-fit-text">Ablaufplan & Aufwand</h1>
+        </section>
         <section data-auto-animate>
-          <span class="material-icons md-big">analytics</span><br/>
+          <h1 class="r-fit-text">Ablaufplan & Aufwand</h1>
+          <div class="grid-container">
+            <img class="left-grid-item legende" src="./assets/legende.jpeg">
+            <div class="r-stack right-grid-item">
+              <img
+                src="./assets/gantt.jpeg"
+                class="fragment fade-out"
+                data-fragment-index="0"
+              />
+              <img
+                src="./assets/aufwand.jpeg"
+                class="fragment current-visible"
+                data-fragment-index="0"
+              />
+            </div>
+          </div>
+        </section>
+        <!-- Ist-Soll -->
+        <section id="IST/SOLL-Analyse" data-auto-animate>
+          <span class="material-icons md-big">analytics</span>
+          <br />
           <h1 class="r-fit-text">IST/SOLL-Analyse</h1>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">IST/SOLL-Analyse</h1>
-          
+          <div class="r-stack">
+            <div
+              class="fragment fade-out grid-container"
+              data-fragment-index="0"
+            >
+              <img
+                class="left-grid-item"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F3%2F38%2FPrometheus_software_logo.svg%2F1200px-Prometheus_software_logo.svg.png"
+              />
+              <ul class="right-grid-item">
+                <li>1 vServer</li>
+                <li>4vCPU, 16GB RAM, 500GB SSD</li>
+                <li>Prometheus & Grafana</li>
+                <li>circa 400 Endpunkte</li>
+                <li>Scraping: 468 MB/min</li>
+              </ul>
+            </div>
+            <div
+              class="fragment current-visible grid-container"
+              data-fragment-index="0"
+            >
+              <img
+                class="icon left-grid-item"
+                src="https://github.com/m3db/m3/raw/master/site/static/images/logo-square.png"
+              />
+              <ul class="right-grid-item">
+                <li>3 vServer</li>
+                <li>4 vCPU, 8 GB RAM, 500GB SSD</li>
+                <li>Prometheus, M3DB, Consul & Grafana</li>
+              </ul>
+            </div>
+            <div class="fragment fade-in-then-out grid-container">
+              <div class="left-grid-item">
+                <h6>Cluster Topologie</h6>
+                <img src="assets/netzwerkdiagramm.png">
+              </div>
+              <div class="right-grid-item">
+                <h6>Node Topologie</h6>
+                <img src="assets/node_configuration_diagram.svg">
+              </div>
+            </div>
+            <div class="fragment fade-in grid-container">
+              <h6 class="left-grid-item">Nutzen</h6>
+              <ul class="right-grid-item">
+                <li>No Single Point of Failure</li>
+                <li>Horizontal Skalierbar</li>
+                <li>Wachsende Community</li>
+                <li>Aggregation inklusive</li>
+              </ul>
+            </div>
+          </div>
         </section>
-        <!-- Code -->
-        <section>
+        <!-- Konstruktion von Playbook & Rollen -->
+        <section data-auto-animate id="Konstruktion von Playbook & Rollen">
+          <span class="material-icons md-big">code</span>
+          <br/>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <pre><code data-trim data-noescape>
+---
+- name: Setup Distributed Prometheus
+  hosts: all
+  become: yes
+  remote_user: root
+  roles:
+  - cloudalchemy.node_exporter
+  - common
+  - consul
+  - etcd
+  - m3db
+  - prometheus
+  - grafana
+          </code></pre>
+          <small>Playbook main.yml</small>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>Common Rolle</h6>
+          <ul>
+            <li>Setzen des Hostname</li>
+            <li>Aktivieren der Firewall</li>
+            <li>Installation des EPEL Repository</li>
+            <li>Installation von Podman</li>
+            <li>...</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>Consul Rolle</h6>
+          <ul>
+            <li>Öffnen der Ports in der Firewall</li>
+            <li>Erstellen der Data-/Configfolder</li>
+            <li>Starten des Consul Server Containers</li>
+            <li>Starten des Consul Agent Containers</li>
+            <li>Warten auf Readiness</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>ETCD Rolle</h6>
+          <ul>
+            <li>Öffnen der Ports in der Firewall</li>
+            <li>Erstellen der Data-/Configfolder</li>
+            <li>Starten des ETCD Containers</li>
+            <li>Warten auf Readiness</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>M3DB Rolle</h6>
+          <ul>
+            <li>Kernelkonfigurationen</li>
+            <li>Öffnen der Ports in der Firewall</li>
+            <li>Erstellen der Data-/Configfolder</li>
+            <li>Erstellen der Konfigurationdatei</li>
+            <li>Starten des M3DB Containers</li>
+            <li>Erstellen eines Namespace</li>
+            <li>Konfiguration der Platzierung</li>
+            <li>Erstellen einer Datenbank</li>
+            <li>Warten auf Readiness</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>Prometheus Rolle</h6>
+          <ul>
+            <li>Öffnen des Ports in der Firewall</li>
+            <li>Erstellen der Configfolder</li>
+            <li>Erstellen der Konfigurationdatei</li>
+            <li>Starten des Prometheus Containers</li>
+          </ul>
+        </section>
+        <section data-auto-animate>
           <h1 class="r-fit-text">Prometheuskonfiguration</h1>
           <pre><code data-trim data-noescape data-line-numbers="2-4|5-6|7-9|9-13">
 # prometheus.yml.j2
@@ -187,8 +343,22 @@ scrape_configs:
 					</code></pre>
           <small>Template der Prometheuskonfiguration</small>
         </section>
+        <section data-auto-animate>
+          <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
+          <h6>Grafana Rolle (Node 0)</h6>
+          <ul>
+            <li>Öffnen des Ports in der Firewall</li>
+            <li>Erstellen der Data-/Configfolder</li>
+            <li>Erstellen der Konfigurationdatei</li>
+            <li>Starten des Grafana Containers</li>
+          </ul>
+        </section>
         <!-- Durchführung -->
-        <section id="Installation">
+        <section  id="Installation" data-auto-animate>
+          <span class="material-icons md-big">play_arrow</span>
+          <h1 class="r-fit-text">Installation</h1>
+        </section>
+        <section data-auto-animate>
           <h1 class="r-fit-text">Installation</h1>
           <asciinema-player
             id="player"
@@ -201,6 +371,14 @@ scrape_configs:
             start-at="200"
             poster="npt:3:20"
           ></asciinema-player>
+        </section>
+        <!-- Fazit -->
+        <section id="Fazit" data-auto-animate>
+          <span class="material-icons md-big">trending_up</span>
+          <h1>Fazit</h1>
+        </section>
+        <section data-auto-animate>
+          <h1>Fazit</h1>
         </section>
         <!-- Quellen -->
         <section

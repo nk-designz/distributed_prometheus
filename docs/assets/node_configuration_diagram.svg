@@ -33,7 +33,7 @@
 <g id="clust6" class="cluster">
 <title>cluster_gc_4</title>
 <polygon fill="none" stroke="black" points="242,-39 242,-114 324,-114 324,-39 242,-39"/>
-<text text-anchor="middle" x="283" y="-98.8" font-family="Times,serif" font-size="14.00">Consul&#45;0</text>
+<text text-anchor="middle" x="283" y="-98.8" font-family="Times,serif" font-size="14.00">Consul&#45;n</text>
 </g>
 <!-- node exporter -->
 <g id="node1" class="node">

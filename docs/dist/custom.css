@@ -22,11 +22,12 @@
 .reveal ul[id*="agenda"] {
   list-style-type: none;
 }
-.reveal section .page_number {
+.reveal section .page_num {
+  cursor: pointer;
   color: var(--pale-graze);
   text-decoration: none;
 }
-.reveal section .page_number:hover {
+.reveal section .page_num:hover {
   color: var(--haze) !important;
 }
 .reveal section[data-background-color*="var(--haze)"] * {
@@ -74,4 +75,7 @@ asciinema-player {
 }
 .lighter {
     color: var(--pale-graze);
+}
+.legende {
+  width: 10vw;
 }
