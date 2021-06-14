@@ -13,7 +13,7 @@ Reveal.initialize({
   transition: "slide",
   autoAnimate: true,
   // Learn about plugins: https://revealjs.com/plugins/
-  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealChart],
+  plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealChart, ],
   // Chart Config
   chart: {
     defaults: {

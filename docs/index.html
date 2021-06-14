@@ -167,7 +167,7 @@
         <section data-auto-animate>
           <h1 class="r-fit-text">Ablaufplan & Aufwand</h1>
           <div class="grid-container">
-            <img class="left-grid-item legende" src="./assets/legende.jpeg">
+            <img class="left-grid-item legende" src="./assets/legende.jpeg" />
             <div class="r-stack right-grid-item">
               <img
                 src="./assets/gantt.jpeg"
@@ -186,10 +186,10 @@
         <section id="IST/SOLL-Analyse" data-auto-animate>
           <span class="material-icons md-big">analytics</span>
           <br />
-          <h1 class="r-fit-text">IST/SOLL-Analyse</h1>
+          <h2 class="r-fit-text">IST/SOLL-Analyse</h2>
         </section>
         <section data-auto-animate>
-          <h1 class="r-fit-text">IST/SOLL-Analyse</h1>
+          <h2 class="r-fit-text">IST/SOLL-Analyse</h2>
           <div class="r-stack">
             <div
               class="fragment fade-out grid-container"
@@ -224,11 +224,11 @@
             <div class="fragment fade-in-then-out grid-container">
               <div class="left-grid-item">
                 <h6>Cluster Topologie</h6>
-                <img src="assets/netzwerkdiagramm.png">
+                <img src="assets/netzwerkdiagramm.png" />
               </div>
               <div class="right-grid-item">
                 <h6>Node Topologie</h6>
-                <img src="assets/node_configuration_diagram.svg">
+                <img src="assets/node_configuration_diagram.svg" />
               </div>
             </div>
             <div class="fragment fade-in grid-container">
@@ -245,7 +245,7 @@
         <!-- Konstruktion von Playbook & Rollen -->
         <section data-auto-animate id="Konstruktion von Playbook & Rollen">
           <span class="material-icons md-big">code</span>
-          <br/>
+          <br />
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
         </section>
         <section data-auto-animate>
@@ -272,10 +272,9 @@
           <h6>Common Rolle</h6>
           <ul>
             <li>Setzen des Hostname</li>
-            <li>Aktivieren der Firewall</li>
-            <li>Installation des EPEL Repository</li>
-            <li>Installation von Podman</li>
-            <li>...</li>
+            <li class="fragment">Aktivieren der Firewall</li>
+            <li class="fragment">Installation des EPEL Repository</li>
+            <li class="fragment">Installation von Podman</li>
           </ul>
         </section>
         <section data-auto-animate>
@@ -283,10 +282,10 @@
           <h6>Consul Rolle</h6>
           <ul>
             <li>Öffnen der Ports in der Firewall</li>
-            <li>Erstellen der Data-/Configfolder</li>
-            <li>Starten des Consul Server Containers</li>
-            <li>Starten des Consul Agent Containers</li>
-            <li>Warten auf Readiness</li>
+            <li class="fragment">Erstellen der Data-/Configfolder</li>
+            <li class="fragment">Starten des Consul Server Containers</li>
+            <li class="fragment">Starten des Consul Agent Containers</li>
+            <li class="fragment">Warten auf Readiness</li>
           </ul>
         </section>
         <section data-auto-animate>
@@ -294,9 +293,9 @@
           <h6>ETCD Rolle</h6>
           <ul>
             <li>Öffnen der Ports in der Firewall</li>
-            <li>Erstellen der Data-/Configfolder</li>
-            <li>Starten des ETCD Containers</li>
-            <li>Warten auf Readiness</li>
+            <li class="fragment">Erstellen der Data-/Configfolder</li>
+            <li class="fragment">Starten des ETCD Containers</li>
+            <li class="fragment">Warten auf Readiness</li>
           </ul>
         </section>
         <section data-auto-animate>
@@ -304,14 +303,14 @@
           <h6>M3DB Rolle</h6>
           <ul>
             <li>Kernelkonfigurationen</li>
-            <li>Öffnen der Ports in der Firewall</li>
-            <li>Erstellen der Data-/Configfolder</li>
-            <li>Erstellen der Konfigurationdatei</li>
-            <li>Starten des M3DB Containers</li>
-            <li>Erstellen eines Namespace</li>
-            <li>Konfiguration der Platzierung</li>
-            <li>Erstellen einer Datenbank</li>
-            <li>Warten auf Readiness</li>
+            <li class="fragment">Öffnen der Ports in der Firewall</li>
+            <li class="fragment">Erstellen der Data-/Configfolder</li>
+            <li class="fragment">Erstellen der Konfigurationdatei</li>
+            <li class="fragment">Starten des M3DB Containers</li>
+            <li class="fragment">Erstellen eines Namespace</li>
+            <li class="fragment">Konfiguration der Platzierung</li>
+            <li class="fragment">Erstellen einer Datenbank</li>
+            <li class="fragment">Warten auf Readiness</li>
           </ul>
         </section>
         <section data-auto-animate>
@@ -319,9 +318,9 @@
           <h6>Prometheus Rolle</h6>
           <ul>
             <li>Öffnen des Ports in der Firewall</li>
-            <li>Erstellen der Configfolder</li>
-            <li>Erstellen der Konfigurationdatei</li>
-            <li>Starten des Prometheus Containers</li>
+            <li class="fragment">Erstellen der Configfolder</li>
+            <li class="fragment">Erstellen der Konfigurationdatei</li>
+            <li class="fragment">Starten des Prometheus Containers</li>
           </ul>
         </section>
         <section data-auto-animate>
@@ -348,13 +347,13 @@ scrape_configs:
           <h6>Grafana Rolle (Node 0)</h6>
           <ul>
             <li>Öffnen des Ports in der Firewall</li>
-            <li>Erstellen der Data-/Configfolder</li>
-            <li>Erstellen der Konfigurationdatei</li>
-            <li>Starten des Grafana Containers</li>
+            <li class="fragment">Erstellen der Data-/Configfolder</li>
+            <li class="fragment">Erstellen der Konfigurationdatei</li>
+            <li class="fragment">Starten des Grafana Containers</li>
           </ul>
         </section>
         <!-- Durchführung -->
-        <section  id="Installation" data-auto-animate>
+        <section id="Installation" data-auto-animate>
           <span class="material-icons md-big">play_arrow</span>
           <h1 class="r-fit-text">Installation</h1>
         </section>
@@ -379,6 +378,40 @@ scrape_configs:
         </section>
         <section data-auto-animate>
           <h1>Fazit</h1>
+          <div class="r-stack">
+            <img
+              class="fragment fade-out"
+              data-fragment-index="0"
+              src="assets/consul_services_added.png"
+            />
+            <img
+              class="fragment current-visible"
+              data-fragment-index="0"
+              src="assets/prometheus_service_discovery.png"
+            />
+            <img
+              class="fragment fade-in-then-out"
+              src="assets/m3db_grafana_dashboard.png"
+            />
+            <div class="fragment fade-in grid-container">
+              <div class="left-grid-item">
+                <h6>Monitoring</h6>
+                <ul>
+                  <li>Ausfalltoleranz</li>
+                  <li>Reproduzierbar</li>
+                  <li>Dynamisch</li>
+                </ul>
+              </div>
+              <div class="right-grid-item">
+                <h6>Planung</h6>
+                <ul>
+                  <li>Verschiebung in den Rollen</li>
+                  <li>In sich stimmig</li>
+                  <li>Viel gelernt!</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
         <!-- Quellen -->
         <section
@@ -387,6 +420,22 @@ scrape_configs:
           data-background-color="var(--haze)"
         >
           <h1 class="r-fit-text">Quellen</h1>
+          <pre><code data-trim data-noescape>
+https://www.bundesgesundheitsministerium.de/
+https://www.sormas-oegd.de/
+https://www.itzbund.de/
+https://etcd.io/
+https://m3db.io
+https://etcd.io/docs/v3.4/op-guide/configuration/
+https://www.youtube.com/watch?v=CcH13GyszHI
+https://www.itzbund.de/DE/home/home_node.html
+https://www.youtube.com/watch?v=gqwcUgZOoyI
+https://prometheus.io/docs/
+https://docs.ansible.com/ansible/latest/user_guide/
+https://www.ansible.com/resources/whitepapers
+https://grafana.com/docs
+https://podman.io/
+          </code></pre>
         </section>
         <!-- Danksagung -->
         <section data-auto-animate data-background-color="var(--haze)">
