@@ -34,6 +34,7 @@ Reveal.initialize({
     const heading = val.id;
     if (["", "deck", "agenda"].indexOf(heading) == -1) {
       const entry = document.createElement("li");
+      entry.className = "fragment";
       const page_number = document.createElement("a");
       page_number.className = "page_num";
       page_number.innerText = ((k) => {
