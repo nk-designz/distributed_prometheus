@@ -1,6 +1,7 @@
 // More info about initialization & config:
 // - https://revealjs.com/initialization/
 // - https://revealjs.com/config/
+mermaid.initialize({startOnLoad:true});
 Reveal.initialize({
   hash: true,
   controlsTutorial: true,

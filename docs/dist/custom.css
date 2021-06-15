@@ -79,3 +79,9 @@ asciinema-player {
 .legende {
   width: 10vw;
 }
+.mermaid {
+  max-width: 50vw;
+}
+.mermaid svg {
+  max-width: inherit !important;
+}

@@ -270,38 +270,59 @@
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>Common Rolle</h6>
+          <!--
           <ul>
             <li>Setzen des Hostname</li>
             <li class="fragment">Aktivieren der Firewall</li>
             <li class="fragment">Installation des EPEL Repository</li>
             <li class="fragment">Installation von Podman</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Hostname ist gesetzt) --> |ok| B(Firewall ist aktiv)
+            B --> |ok| C(EPEL Repository ist konfiguriert)
+            C --> |ok| D(Pakete sind installiert z.B. podman)
+            D --> |ok| E(Zeitzone ist konfiguriert)
+          </div>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>Consul Rolle</h6>
-          <ul>
+          <!--<ul>
             <li>Öffnen der Ports in der Firewall</li>
             <li class="fragment">Erstellen der Data-/Configfolder</li>
             <li class="fragment">Starten des Consul Server Containers</li>
             <li class="fragment">Starten des Consul Agent Containers</li>
             <li class="fragment">Warten auf Readiness</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Ports in der Firewall sind offen) --> |ok| B(Data-/Configfolder sind vorhanden)
+            B --> |ok| C(Consul Server Container läuft)
+            C --> |ok| D(Consul Agent Container laufen)
+            D --> |ok| E(Status ist Ready)
+          </div>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>ETCD Rolle</h6>
-          <ul>
+          <!--<ul>
             <li>Öffnen der Ports in der Firewall</li>
             <li class="fragment">Erstellen der Data-/Configfolder</li>
             <li class="fragment">Starten des ETCD Containers</li>
             <li class="fragment">Warten auf Readiness</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Ports in der Firewall sind offen) --> |ok| B(Data-/Configfolder sind vorhanden)
+            B --> |ok| C(ETCD Server Container laufen)
+            C --> |ok| D(Status ist Ready)
+          </div>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>M3DB Rolle</h6>
-          <ul>
+          <!--<ul>
             <li>Kernelkonfigurationen</li>
             <li class="fragment">Öffnen der Ports in der Firewall</li>
             <li class="fragment">Erstellen der Data-/Configfolder</li>
@@ -311,17 +332,32 @@
             <li class="fragment">Konfiguration der Platzierung</li>
             <li class="fragment">Erstellen einer Datenbank</li>
             <li class="fragment">Warten auf Readiness</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Ports in der Firewall sind offen) --> |ok| B(Data-/Configfolder sind vorhanden)
+            B --> |ok| C(Konfigurationdatei ist getemplated)
+            C --> |ok| D(M3DB Container laufen)
+            E(Namespace ist konfiguriert)--> |ok| F(Placement ist konfiguriert)
+            F --> |ok| G(Datenbank ist erstellt)
+            G --> |ok| H(Status ist Ready)
+          </div>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>Prometheus Rolle</h6>
-          <ul>
+          <!--<ul>
             <li>Öffnen des Ports in der Firewall</li>
             <li class="fragment">Erstellen der Configfolder</li>
             <li class="fragment">Erstellen der Konfigurationdatei</li>
             <li class="fragment">Starten des Prometheus Containers</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Ports in der Firewall sind offen) --> |ok| B(Configfolder sind vorhanden)
+            B --> |ok| C(Konfigurationdatei ist getemplated)
+            C --> |ok| D(Prometheus Container laufen)
+          </div>
         </section>
         <section data-auto-animate>
           <h1 class="r-fit-text">Prometheuskonfiguration</h1>
@@ -345,12 +381,18 @@ scrape_configs:
         <section data-auto-animate>
           <h1 class="r-fit-text">Konstruktion von Playbook & Rollen</h1>
           <h6>Grafana Rolle (Node 0)</h6>
-          <ul>
+          <!--<ul>
             <li>Öffnen des Ports in der Firewall</li>
             <li class="fragment">Erstellen der Data-/Configfolder</li>
             <li class="fragment">Erstellen der Konfigurationdatei</li>
             <li class="fragment">Starten des Grafana Containers</li>
-          </ul>
+          </ul>-->
+          <div class="mermaid">
+            graph TD
+            A(Ports in der Firewall sind offen) --> |ok| B(Data-/Configfolder sind vorhanden)
+            B --> |ok| C(Konfigurationdatei ist getemplated)
+            C --> |ok| D(Grafana Container läuft)
+          </div>
         </section>
         <!-- Durchführung -->
         <section id="Installation" data-auto-animate>
@@ -465,6 +507,7 @@ https://podman.io/
     <script src="plugin/notes/notes.js"></script>
     <script src="plugin/markdown/markdown.js"></script>
     <script src="plugin/highlight/highlight.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <script src="dist/custom.js"></script>
   </body>
 </html>
