@@ -54,9 +54,17 @@
   grid-column-end: 2;
 }
 .reveal .progress {
-  height: 7px;
-  color: var(--pale-graze);
+  height: 22px;
+  color: var(--anthrazit);
   background-color: transparent;
+}
+.reveal .slide-number {
+  font-size: 15px !important;
+  left: 2px !important;
+  bottom: 2px !important;
+  background-color: transparent !important;
+  padding: 2px !important;
+  font-weight: bold;
 }
 .reveal .controls {
   color: var(--pale-graze);
@@ -74,4 +82,11 @@ asciinema-player {
 }
 .diagram-slide {
   top: 2.5vw !important;
+}
+.diag-a-style rect {
+  stroke: var(--haze) !important;
+  fill: var(--pale-graze) !important;
+}
+.diag-a-style .label {
+  color: var(--anthrazit) !important;
 }
