@@ -16,12 +16,15 @@
   list-style-type: none;
 }
 .reveal section .page_num {
-  cursor: pointer;
   color: var(--pale-graze);
   text-decoration: none;
 }
 .reveal section .page_num:hover {
   color: var(--haze) !important;
+}
+.agenda_heading {
+  width: 35vw !important;
+  text-align: left;
 }
 .reveal section[data-background-color*="var(--haze)"] * {
   color: white !important;
@@ -61,7 +64,7 @@
 .reveal .slide-number {
   font-size: 15px !important;
   left: 2px !important;
-  bottom: 2px !important;
+  bottom: 1px !important;
   background-color: transparent !important;
   padding: 2px !important;
   font-weight: bold;
@@ -78,7 +81,7 @@ asciinema-player {
     color: var(--pale-graze);
 }
 .legende {
-  width: 10vw;
+  width: 15vw;
 }
 .diagram-slide {
   top: 2.5vw !important;
@@ -89,4 +92,21 @@ asciinema-player {
 }
 .diag-a-style .label {
   color: var(--anthrazit) !important;
+}
+.netzlink-logo {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 200px;
+  padding-right: 10px;
+  background-color: var(--anthrazit);
+  /* border-bottom-right-radius: 2.3rem; */
+  z-index: 200;
+  clip-path: polygon(0% 0%, 100% 0%, 85% 100%, 0% 100%);;
+}
+.netzlink-logo a img {
+  margin: 10px;
+}
+.shadow-wrap {
+  filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.5));
 }

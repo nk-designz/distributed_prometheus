@@ -31,18 +31,21 @@ Reveal.initialize({
   });
   // Create the Agenda from ids tags
   document.getElementsByTagName("section").forEach((val, key) => {
-    const heading = val.id;
-    if (["", "deck", "agenda"].indexOf(heading) == -1) {
+
+    const heading = document.createElement("div");
+    heading.innerText = val.id;
+    heading.className = "agenda_heading left-grid-item";
+    if (["", "deck", "agenda"].indexOf(heading.innerText) == -1) {
       const entry = document.createElement("li");
-      entry.className = "fragment";
+      entry.className = "fragment grid-container";
       const page_number = document.createElement("a");
-      page_number.className = "page_num";
-      page_number.innerText = ((k) => {
+      page_number.className = "page_num right-grid-item";
+      page_number.innerText = ' ' + ((k) => {
         if (k > 9) { return k }
         return '0' + k
-      })(key) + ' ';
+      })(key);
       page_number.href = window.location.href.replace('deck', key);
-      entry.append(page_number, heading);
+      entry.append(heading, page_number);
 
       if (heading != "Agenda") {
         document.getElementById("agenda-index").append(entry);
