@@ -31,7 +31,6 @@ Reveal.initialize({
   });
   // Create the Agenda from ids tags
   document.getElementsByTagName("section").forEach((val, key) => {
-
     const heading = document.createElement("div");
     heading.innerText = val.id;
     heading.className = "agenda_heading left-grid-item";
@@ -46,8 +45,7 @@ Reveal.initialize({
       })(key);
       page_number.href = window.location.href.replace('deck', key);
       entry.append(heading, page_number);
-
-      if (heading != "Agenda") {
+      if (heading.innerText != "Agenda") {
         document.getElementById("agenda-index").append(entry);
       }
     }

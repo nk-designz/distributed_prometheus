@@ -110,3 +110,10 @@ asciinema-player {
 .shadow-wrap {
   filter: drop-shadow(3px 3px 4px rgba(0,0,0,0.5));
 }
+.checker {
+  list-style: none !important;
+}
+
+.checker li:before {
+  content: '✓ ' !important;
+}
