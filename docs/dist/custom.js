@@ -2,6 +2,7 @@
 // - https://revealjs.com/initialization/
 // - https://revealjs.com/config/
 Reveal.initialize({
+  loop: true,
   hash: true,
   controlsTutorial: true,
   controlsLayout: "edges",
