@@ -54,7 +54,7 @@ The [documentation](docs/distributed_prometheus.pdf) is written in german due to
 - [x] load balancer
 - [x] grafana role
 - [x] documentation
-- [ ] presentation
+- [x] presentation
 
 ## Draft
 ~~~bash
